@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TryitterAPI.Repository;
 
@@ -11,9 +12,11 @@ using TryitterAPI.Repository;
 namespace TryitterAPI.Migrations
 {
     [DbContext(typeof(TryitterContext))]
-    partial class TryitterContextModelSnapshot : ModelSnapshot
+    [Migration("20221129212919_modelImage")]
+    partial class modelImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace TryitterAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("StudentId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -104,19 +107,18 @@ namespace TryitterAPI.Migrations
 
             modelBuilder.Entity("TryitterAPI.Models.Post", b =>
                 {
-                    b.HasOne("TryitterAPI.Models.Student", null)
-                        .WithMany("Posts")
-                        .HasForeignKey("StudentId");
+                    b.HasOne("TryitterAPI.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("TryitterAPI.Models.Post", b =>
                 {
                     b.Navigation("Images");
-                });
-
-            modelBuilder.Entity("TryitterAPI.Models.Student", b =>
-                {
-                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }
