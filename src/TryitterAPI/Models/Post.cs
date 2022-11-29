@@ -11,6 +11,10 @@ namespace TryitterAPI.Models
         public string Text { get; set; }
         public Student Student { get; set; }
 
+        public Post()
+        {
+        }
+
         public Post(int id, string title, string text, Student student)
         {
             Id = id;

@@ -12,19 +12,16 @@ namespace TryitterAPI.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
-        [Column("Post_Id")]
-        [ForeignKey("PostId")]
-        public int PostId { get; set; }
-        public ICollection<Post> Posts { get; set; }
+        public Student()
+        {
+        }
 
-        public Student(int id, string name, string email, string password, int postId, ICollection<Post> posts)
+        public Student(int id, string name, string email, string password)
         {
             Id = id;
             Name = name;
             Email = email;
             Password = password;
-            PostId = postId;
-            Posts = posts;
         }
     }
 }
