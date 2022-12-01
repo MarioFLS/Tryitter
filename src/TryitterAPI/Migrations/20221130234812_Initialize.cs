@@ -5,7 +5,7 @@
 namespace TryitterAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class refactorStudentAndPost : Migration
+    public partial class Initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

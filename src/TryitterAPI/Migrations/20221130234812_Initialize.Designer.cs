@@ -12,8 +12,8 @@ using TryitterAPI.Repository;
 namespace TryitterAPI.Migrations
 {
     [DbContext(typeof(TryitterContext))]
-    [Migration("20221129215308_refactorStudentAndPost")]
-    partial class refactorStudentAndPost
+    [Migration("20221130234812_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
