@@ -1,9 +1,11 @@
 ﻿using TryitterAPI.Models;
+using TryitterAPI.Models.Entities;
 
 namespace TryitterAPI.Repository
 {
     public interface ITryitterRepository
     {
-        void CreateStudent(Student student);
+        string CreateStudent(Student student);
+        string StudentLogin(Entities.Login login);
     }
 }
