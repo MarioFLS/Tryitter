@@ -9,6 +9,7 @@ namespace TryitterAPI.Services.Swagger
         public void Apply(OpenApiSchema schema, SchemaFilterContext context)
         {
             schema.Properties.Remove("id");
+            Console.WriteLine(context);
             schema.Properties.Remove("posts");
         }
     }
