@@ -29,8 +29,9 @@ namespace TryitterAPI.Services.Auth
         {
             var claims = new ClaimsIdentity();
 
-            claims.AddClaim(new Claim(ClaimTypes.Name, student.Name));
-            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, student.Id.ToString()));
+            claims.AddClaim(new Claim("name", student.Name));
+            claims.AddClaim(new Claim("email", student.Email));
+            claims.AddClaim(new Claim("id", student.Id.ToString()));
             return claims;
         }
     }
