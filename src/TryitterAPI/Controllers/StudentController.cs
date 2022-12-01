@@ -7,8 +7,8 @@ using TryitterAPI.Repository;
 namespace TryitterAPI.Controllers
 {
 
-    [Route("student")]
     [ApiController]
+    [Route("student")]
     public class StudentController : ControllerBase
     {
         private readonly ITryitterRepository _twitterRepository;
@@ -17,7 +17,6 @@ namespace TryitterAPI.Controllers
         {
             _twitterRepository = twitterRepository;
         }
-
         [HttpPost]
         public IActionResult CreateStudent([FromBody] Student student)
         {
@@ -29,7 +28,7 @@ namespace TryitterAPI.Controllers
             return StatusCode(201, new { token });
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public IActionResult StudentLogin([FromBody] Entities.Login login)
         {
             string token = _twitterRepository.StudentLogin(login);
