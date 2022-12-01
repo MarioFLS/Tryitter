@@ -14,7 +14,7 @@ namespace TryitterAPI.Models
         [EmailAddress(ErrorMessage = "Digite um email válido")]
         public string Email { get; set; } = default!;
         
-        [MinLength(5, ErrorMessage = "O senha deve ter deve ter no minimo 3 caracteres")]
+        [MinLength(5, ErrorMessage = "A senha deve ter deve ter no minimo 3 caracteres")]
         public string Password { get; set; } = default!;
         public ICollection<Post> Posts { get; set; } = new List<Post>();
 
