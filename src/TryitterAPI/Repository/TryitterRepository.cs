@@ -1,5 +1,4 @@
 ﻿using TryitterAPI.Models;
-using TryitterAPI.Models.Entities;
 using TryitterAPI.Services.Auth;
 using static TryitterAPI.Models.Entities.Entities;
 
@@ -29,7 +28,7 @@ namespace TryitterAPI.Repository
             return _tokenGenerator.Generate(student);
         }
 
-        public string StudentLogin(Entities.Login login)
+        public string StudentLogin(Login login)
         {
            Student? student = _context.Students.Where(e => e.Email == login.Email && e.Password == login.Password).FirstOrDefault();
            

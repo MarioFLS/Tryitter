@@ -2,15 +2,6 @@
 {
     public class Entities
     {
-        public struct TokenText
-        {
-            public string Token { get; set; }
-
-            public TokenText(string token)
-            {
-                Token = token;
-            }
-        }
 
         public struct Login
         {
