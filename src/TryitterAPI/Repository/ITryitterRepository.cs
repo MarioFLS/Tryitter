@@ -7,5 +7,7 @@ namespace TryitterAPI.Repository
     {
         string CreateStudent(Student student);
         string StudentLogin(Entities.Login login);
+
+        void AddPost(Post post);
     }
 }
