@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using TryitterAPI.Models;
 using TryitterAPI.Models.Entities;
@@ -18,6 +19,7 @@ namespace TryitterAPI.Controllers
             _twitterRepository = twitterRepository;
         }
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult CreateStudent([FromBody] Student student)
         {
             string token = _twitterRepository.CreateStudent(student);
@@ -29,6 +31,7 @@ namespace TryitterAPI.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public IActionResult StudentLogin([FromBody] Entities.Login login)
         {
             string token = _twitterRepository.StudentLogin(login);
