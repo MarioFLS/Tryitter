@@ -1,6 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Collections.Generic;
 
 namespace TryitterAPI.Services.Swagger
 {
@@ -10,6 +9,7 @@ namespace TryitterAPI.Services.Swagger
         {
             schema.Properties.Remove("id");
             schema.Properties.Remove("posts");
+            schema.Properties.Remove("studentId");
         }
     }
 }
