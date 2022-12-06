@@ -1,5 +1,6 @@
 ﻿using TryitterAPI.Models;
 using TryitterAPI.Services.Auth;
+using TryitterAPI.Services.Exception;
 using static TryitterAPI.Models.Entities.Entities;
 
 namespace TryitterAPI.Repository
@@ -37,7 +38,19 @@ namespace TryitterAPI.Repository
                 return "";
             }
 
-           return _tokenGenerator.Generate(student!);
+           return _tokenGenerator.Generate(student);
+        }
+
+        public void AddPost(Post post, string token)
+        {
+
+            var validateToken = TokenGenerator.ValidateToken(token, _context);
+            if(validateToken == null)
+            {
+                throw new InvalidTokenException("Token Inválido");
+            }
+            _context.Post.Add(post);
+            _context.SaveChanges();
         }
     }
 }
