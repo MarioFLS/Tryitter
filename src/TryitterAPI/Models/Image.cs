@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace TryitterAPI.Models
 {
@@ -6,11 +7,8 @@ namespace TryitterAPI.Models
     {
         public int Id { get; set; }
 
+        [DefaultValue(null)]
         [DataType(DataType.Url)]
-        public string? Link { get; set; }
-
-        [Range(1, 1, ErrorMessage = "Digite um id válido")]
-        public int PostId { get; set; }
-
+        public string? Link { get; set; } = null;
     }
 }
