@@ -25,16 +25,10 @@ namespace TryitterAPI.Controllers
             {
 
 
-                string? token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-                if (token == null)
-                {
-                    throw new InvalidTokenException("Token Inválido");
-                }
-
                 var studentId = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
                 Post newPost = new() { StudentId = studentId, Images = post.Images, Text = post.Text, Title = post.Title };
 
-                _twitterRepository.AddPost(newPost, token);
+                _twitterRepository.AddPost(newPost);
 
                 return CreatedAtAction(nameof(CreatePost), new { id = studentId }, newPost);
 

@@ -30,44 +30,11 @@ namespace TryitterAPI.Services.Auth
         {
             var claims = new ClaimsIdentity();
 
-            claims.AddClaim(new Claim("name", student.Name));
             claims.AddClaim(new Claim("email", student.Email));
             claims.AddClaim(new Claim("id", student.Id.ToString()));
             return claims;
         }
-
-        // Validação de Token
-        // https://jasonwatmore.com/post/2022/01/19/net-6-create-and-validate-jwt-tokens-use-custom-jwt-middleware
-        public static Student? ValidateToken(string token, TryitterContext context)
-        {
-            if (token == null)
-                return null;
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Secret);
-            try
-            {
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
-
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                var studentName = jwtToken.Claims.First(x => x.Type == "name").Value;
-                var studentEmail = jwtToken.Claims.First(x => x.Type == "email").Value;
-                var student = context.Students.Where(u => u.Name == studentName && u.Email == studentEmail).First();
-
-                return student;
-            }
-            catch
-            {
-                return null;
-            }
-        }
+       
     }
 
 }

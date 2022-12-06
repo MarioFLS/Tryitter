@@ -41,14 +41,9 @@ namespace TryitterAPI.Repository
             return _tokenGenerator.Generate(student);
         }
 
-        public void AddPost(Post post, string token)
+        public void AddPost(Post post)
         {
 
-            var validateToken = TokenGenerator.ValidateToken(token, _context);
-            if (validateToken == null)
-            {
-                throw new InvalidTokenException("Token Inválido");
-            }
             _context.Post.Add(post);
             _context.SaveChanges();
         }
