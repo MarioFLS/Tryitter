@@ -35,7 +35,7 @@ namespace TryitterAPI.Controllers
                 Post newPost = new() { StudentId = studentId, Images = post.Images, Text = post.Text, Title = post.Title };
 
                 _twitterRepository.AddPost(newPost, token);
-                
+
                 return CreatedAtAction(nameof(CreatePost), new { id = studentId }, newPost);
 
             }

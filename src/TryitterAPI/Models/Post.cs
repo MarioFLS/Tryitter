@@ -4,7 +4,7 @@ namespace TryitterAPI.Models
 {
     public class Post
     {
-        public int Id { get; set;  }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "O titulo é obrigatório")]
         [MinLength(5, ErrorMessage = "O titulo deve ter no mínimo 5 caracteres")]
@@ -16,7 +16,6 @@ namespace TryitterAPI.Models
         public string Text { get; set; } = "";
 
         [Required(ErrorMessage = "O id do estudante é obrigatório")]
-        [Range(1, 1, ErrorMessage = "Digite um id válido")]
         public int StudentId { get; set; }
 
         public List<Image>? Images { get; set; } = new List<Image>();

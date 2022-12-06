@@ -31,21 +31,21 @@ namespace TryitterAPI.Repository
 
         public string StudentLogin(Login login)
         {
-           Student? student = _context.Students.Where(e => e.Email == login.Email && e.Password == login.Password).FirstOrDefault();
-           
+            Student? student = _context.Students.Where(e => e.Email == login.Email && e.Password == login.Password).FirstOrDefault();
+
             if (student == null)
             {
                 return "";
             }
 
-           return _tokenGenerator.Generate(student);
+            return _tokenGenerator.Generate(student);
         }
 
         public void AddPost(Post post, string token)
         {
 
             var validateToken = TokenGenerator.ValidateToken(token, _context);
-            if(validateToken == null)
+            if (validateToken == null)
             {
                 throw new InvalidTokenException("Token Inválido");
             }
