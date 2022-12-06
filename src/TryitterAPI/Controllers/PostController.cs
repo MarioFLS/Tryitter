@@ -42,7 +42,7 @@ namespace TryitterAPI.Controllers
             catch (InvalidTokenException e)
             {
 
-                return StatusCode(401, new { message = e.Message });
+                return Unauthorized(new { message = e.Message });
             }
 
         }
