@@ -72,7 +72,9 @@ namespace TryitterAPI.Repository
 
         public void EditPost(Post post, UpdatePost updatePost)
         {
-            throw new NotImplementedException();
+            post.Text = updatePost.Text ?? post.Text;
+            post.Title = updatePost.Title ?? post.Title;
+            _context.SaveChanges();
         }
 
         public void RemovePost(Post post)
@@ -80,5 +82,6 @@ namespace TryitterAPI.Repository
             _context.Post.Remove(post);
             _context.SaveChanges();
         }
+
     }
 }
