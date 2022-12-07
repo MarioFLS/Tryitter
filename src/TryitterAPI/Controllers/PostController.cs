@@ -75,5 +75,29 @@ namespace TryitterAPI.Controllers
             return Ok();
 
         }
+
+        [HttpGet("{id}")]
+        public IActionResult AllPosts(int id)
+        {
+            var posts = _twitterRepository.AllPosts(id);
+            //Console.WriteLine(posts.ToArray().FirstOrDefault());
+            if (posts == null)
+            {
+                return NotFound(new { Message = "Usuário não encontrado" });
+            }
+            return Ok(posts);
+        }
+
+        [HttpGet("{id}/last")]
+        public IActionResult LastPost(int id)
+        {
+            var posts = _twitterRepository.LastPost(id);
+            if (posts == null)
+            {
+                return NotFound(new { Message = "Usuário não encontrado ou não possui ultimo post" });
+            }
+
+            return Ok(posts);
+        }
     }
 }

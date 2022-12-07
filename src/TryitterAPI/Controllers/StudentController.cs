@@ -84,5 +84,23 @@ namespace TryitterAPI.Controllers
             return Ok();
 
         }
+
+        [HttpGet("post")]
+        [Authorize]
+        public IActionResult AllPosts()
+        {
+            int id = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
+            var posts = _twitterRepository.AllPosts(id);
+            return Ok(posts);
+        }
+
+        [HttpGet("post/last")]
+        [Authorize]
+        public IActionResult LastPost()
+        {
+            int id = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
+            var posts = _twitterRepository.LastPost(id);
+            return Ok(posts);
+        }
     }
 }
