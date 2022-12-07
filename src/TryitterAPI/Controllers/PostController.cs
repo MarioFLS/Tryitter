@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using TryitterAPI.Models;
 using TryitterAPI.Repository;
+using static TryitterAPI.Models.Entities.Entities;
 
 namespace TryitterAPI.Controllers
 {
@@ -45,6 +47,33 @@ namespace TryitterAPI.Controllers
             }
             _twitterRepository.RemovePost(post);
             return Ok();
+        }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        public IActionResult EditPost([FromBody] UpdatePost updatePost)
+        {
+
+            int id = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
+
+            if (updatePost.Title == null && updatePost.Title == null)
+            {
+                return BadRequest(new { message = "Insira os dados corretamente" });
+            }
+            var post = _twitterRepository.GetPost(id);
+
+            if (post == null)
+            {
+                return NotFound(new { Message = "Post não encontrado" });
+            }
+            if (post.StudentId != id)
+            {
+                return Unauthorized(new { Message = "Você não é dono desse post" });
+            }
+
+            _twitterRepository.EditPost(post, updatePost);
+            return Ok();
+
         }
     }
 }
