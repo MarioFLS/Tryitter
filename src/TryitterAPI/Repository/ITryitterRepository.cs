@@ -16,5 +16,8 @@ namespace TryitterAPI.Repository
 
         void EditPost(Post post, Entities.UpdatePost updatePost);
         void RemovePost(Post post);
+
+        List<Post>? AllPosts(int id);
+        Post? LastPost(int id);
     }
 }
