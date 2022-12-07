@@ -66,9 +66,10 @@ namespace TryitterAPI.Repository
             _context.SaveChanges();
         }
 
-        public void RemoveStudent(int id)
+        public void RemoveStudent(Student student)
         {
-            throw new NotImplementedException();
+            _context.Remove(student);
+            _context.SaveChanges();
         }
 
         public void EditPost(Post post, UpdatePost updatePost)
@@ -76,7 +77,7 @@ namespace TryitterAPI.Repository
             throw new NotImplementedException();
         }
 
-        public void RemovePost(int id)
+        public void RemovePost(Post post)
         {
             throw new NotImplementedException();
         }
