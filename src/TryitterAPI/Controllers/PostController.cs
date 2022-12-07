@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 using TryitterAPI.Models;
 using TryitterAPI.Repository;
 using static TryitterAPI.Models.Entities.Entities;

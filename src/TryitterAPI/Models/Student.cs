@@ -18,7 +18,7 @@ namespace TryitterAPI.Models
         [Required(ErrorMessage = "A senha é obrigatória")]
         [MinLength(5, ErrorMessage = "A senha deve ter deve ter no minimo 3 caracteres")]
         public string Password { get; set; } = default!;
-        public ICollection<Post> Posts { get; set; } = new List<Post>();
+        public List<Post> Posts { get; set; } = new List<Post>();
 
     }
 }

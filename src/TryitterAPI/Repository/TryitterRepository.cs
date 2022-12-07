@@ -106,7 +106,7 @@ namespace TryitterAPI.Repository
                 return null;
             }
             var post = _context.Post.Include(p => p.Images).Where(p => p.StudentId == id).OrderBy(p => p.Id).ToList();
-            if(post.Count == 0)
+            if (post.Count == 0)
             {
                 return post.FirstOrDefault();
             }
