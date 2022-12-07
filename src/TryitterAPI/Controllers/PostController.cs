@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TryitterAPI.Models;
 using TryitterAPI.Repository;
-using TryitterAPI.Services.Exception;
 
 namespace TryitterAPI.Controllers
 {
@@ -21,24 +20,31 @@ namespace TryitterAPI.Controllers
         [Authorize]
         public IActionResult CreatePost([FromBody] Post post)
         {
-            try
+            var studentId = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
+            Post newPost = new() { StudentId = studentId, Images = post.Images, Text = post.Text, Title = post.Title };
+
+            _twitterRepository.AddPost(newPost);
+
+            return CreatedAtAction(nameof(CreatePost), new { id = studentId }, newPost);
+
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public IActionResult RemovePost(int id)
+        {
+            var studentId = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
+            var post = _twitterRepository.GetPost(id);
+            if (post == null)
             {
-
-
-                var studentId = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
-                Post newPost = new() { StudentId = studentId, Images = post.Images, Text = post.Text, Title = post.Title };
-
-                _twitterRepository.AddPost(newPost);
-
-                return CreatedAtAction(nameof(CreatePost), new { id = studentId }, newPost);
-
+                return NotFound(new { Message = "Post não encontrado" });
             }
-            catch (InvalidTokenException e)
+            if (post.StudentId != studentId)
             {
-
-                return Unauthorized(new { message = e.Message });
+                return Unauthorized(new { Message = "Você não é dono desse post" });
             }
-
+            _twitterRepository.RemovePost(post);
+            return Ok();
         }
     }
 }
