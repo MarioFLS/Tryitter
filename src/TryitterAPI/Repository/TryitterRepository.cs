@@ -94,7 +94,7 @@ namespace TryitterAPI.Repository
                 Console.WriteLine("Olá");
                 return null;
             }
-            return _context.Post.Include(p => p.Images).Where(p => p.StudentId == id).OrderBy(p => p.Id).ToList();
+            return _context.Post.Include(p => p.Images).Where(p => p.StudentId == id).OrderByDescending(p => p.Id).ToList();
 
         }
 
