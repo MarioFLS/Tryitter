@@ -41,11 +41,44 @@ namespace TryitterAPI.Repository
             return _tokenGenerator.Generate(student);
         }
 
+        public Student? GetStudent(int id)
+        {
+            return _context.Students.Find(id);
+        }
+
+        public Post? GetPost(int id)
+        {
+            Console.WriteLine(id);
+            return _context.Post.Find(id);
+        }
+
         public void AddPost(Post post)
         {
 
             _context.Post.Add(post);
             _context.SaveChanges();
+        }
+
+        public void EditStudent(Student student, UpdateStudent updateStudent)
+        {
+            student.Name = updateStudent.Name ?? student.Name;
+            student.Password = updateStudent.Password ?? student.Password;
+            _context.SaveChanges();
+        }
+
+        public void RemoveStudent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditPost(Post post, UpdatePost updatePost)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemovePost(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
