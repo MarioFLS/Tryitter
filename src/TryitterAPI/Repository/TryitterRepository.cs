@@ -1,6 +1,5 @@
 ﻿using TryitterAPI.Models;
 using TryitterAPI.Services.Auth;
-using TryitterAPI.Services.Exception;
 using static TryitterAPI.Models.Entities.Entities;
 
 namespace TryitterAPI.Repository
@@ -48,7 +47,6 @@ namespace TryitterAPI.Repository
 
         public Post? GetPost(int id)
         {
-            Console.WriteLine(id);
             return _context.Post.Find(id);
         }
 
@@ -68,7 +66,7 @@ namespace TryitterAPI.Repository
 
         public void RemoveStudent(Student student)
         {
-            _context.Remove(student);
+            _context.Students.Remove(student);
             _context.SaveChanges();
         }
 
@@ -79,7 +77,8 @@ namespace TryitterAPI.Repository
 
         public void RemovePost(Post post)
         {
-            throw new NotImplementedException();
+            _context.Post.Remove(post);
+            _context.SaveChanges();
         }
     }
 }
