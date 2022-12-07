@@ -10,5 +10,7 @@ namespace TryitterAPI.Models
         [DefaultValue(null)]
         [DataType(DataType.Url)]
         public string? Link { get; set; } = null;
+
+        public int PostId { get; set; }
     }
 }

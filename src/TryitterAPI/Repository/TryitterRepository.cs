@@ -79,7 +79,9 @@ namespace TryitterAPI.Repository
 
         public void RemovePost(Post post)
         {
+            var images = _context.Post.Find(post.Id)!.Images?.RemoveAll(e => e.PostId == post.Id);
             _context.Post.Remove(post);
+
             _context.SaveChanges();
         }
 
