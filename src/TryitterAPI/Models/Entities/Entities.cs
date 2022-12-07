@@ -45,13 +45,10 @@ namespace TryitterAPI.Models.Entities
             [MaxLength(300, ErrorMessage = "O texto pode ter no máximo 300 caracteres")]
             public string? Text { get; set; } = "";
 
-            public List<Image>? Images { get; set; } = new List<Image>();
-
-            public UpdatePost(string? title, string? text, List<Image>? images)
+            public UpdatePost(string? title, string? text)
             {
                 Title = title;
                 Text = text;
-                Images = images;
             }
         }
     }
