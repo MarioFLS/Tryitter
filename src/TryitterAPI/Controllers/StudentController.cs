@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using TryitterAPI.Models;
 using TryitterAPI.Models.Entities;
 using TryitterAPI.Repository;
+using static TryitterAPI.Models.Entities.Entities;
 
 namespace TryitterAPI.Controllers
 {
@@ -18,6 +19,7 @@ namespace TryitterAPI.Controllers
         {
             _twitterRepository = twitterRepository;
         }
+
         [HttpPost]
         [AllowAnonymous]
         public IActionResult CreateStudent([FromBody] Student student)
@@ -32,7 +34,7 @@ namespace TryitterAPI.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public IActionResult StudentLogin([FromBody] Entities.Login login)
+        public IActionResult StudentLogin([FromBody] Login login)
         {
             string token = _twitterRepository.StudentLogin(login);
             if (token.IsNullOrEmpty())
@@ -40,6 +42,31 @@ namespace TryitterAPI.Controllers
                 return Problem("Não existe Usuário com esse email", default, 400);
             }
             return StatusCode(201, new { token });
+
+        }
+
+        [HttpPut]
+        [Authorize]
+        public IActionResult EditStudent([FromBody] UpdateStudent updateStudent)
+        {
+
+            int id = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
+
+            if (updateStudent.Name == null && updateStudent.Password == null)
+            {
+                return BadRequest(new { message = "Insira os dados corretamente" });
+            }
+            var student = _twitterRepository.GetStudent(id);
+
+            if (student == null)
+            {
+                return NotFound(new { message = "Estudante não encontrado" });
+            }
+
+            _twitterRepository.EditStudent(student, updateStudent);
+            return Ok();
+           
+
 
         }
     }
