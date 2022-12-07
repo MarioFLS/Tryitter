@@ -12,9 +12,9 @@ namespace TryitterAPI.Repository
         Student? GetStudent(int id);
         Post? GetPost(int id);
         void EditStudent(Student student, Entities.UpdateStudent updateStudent);
-        void RemoveStudent(int id);
+        void RemoveStudent(Student student);
 
         void EditPost(Post post, Entities.UpdatePost updatePost);
-        void RemovePost(int id);
+        void RemovePost(Post post);
     }
 }
