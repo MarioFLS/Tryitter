@@ -3,7 +3,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using TryitterAPI.Models;
-using TryitterAPI.Repository;
 
 namespace TryitterAPI.Services.Auth
 {
@@ -34,7 +33,7 @@ namespace TryitterAPI.Services.Auth
             claims.AddClaim(new Claim("id", student.Id.ToString()));
             return claims;
         }
-       
+
     }
 
 }
