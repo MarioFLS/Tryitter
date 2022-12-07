@@ -1,4 +1,5 @@
-﻿using TryitterAPI.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using TryitterAPI.Models;
 using TryitterAPI.Services.Auth;
 using static TryitterAPI.Models.Entities.Entities;
 
@@ -85,5 +86,31 @@ namespace TryitterAPI.Repository
             _context.SaveChanges();
         }
 
+        public List<Post>? AllPosts(int id)
+        {
+            var student = _context.Students.Where(s => s.Id == id).FirstOrDefault();
+            if (student == null)
+            {
+                Console.WriteLine("Olá");
+                return null;
+            }
+            return _context.Post.Include(p => p.Images).Where(p => p.StudentId == id).OrderBy(p => p.Id).ToList();
+
+        }
+
+        public Post? LastPost(int id)
+        {
+            var student = _context.Students.Where(s => s.Id == id).FirstOrDefault();
+            if (student == null)
+            {
+                return null;
+            }
+            var post = _context.Post.Include(p => p.Images).Where(p => p.StudentId == id).OrderBy(p => p.Id).ToList();
+            if(post.Count == 0)
+            {
+                return post.FirstOrDefault();
+            }
+            return post.Last();
+        }
     }
 }
