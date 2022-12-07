@@ -65,8 +65,24 @@ namespace TryitterAPI.Controllers
 
             _twitterRepository.EditStudent(student, updateStudent);
             return Ok();
-           
 
+        }
+
+        [HttpDelete]
+        [Authorize]
+        public IActionResult DeleteStudent()
+        {
+
+            int id = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
+            var student = _twitterRepository.GetStudent(id);
+
+            if (student == null)
+            {
+                return NotFound(new { message = "Estudante não encontrado" });
+            }
+
+            _twitterRepository.RemoveStudent(student);
+            return Ok();
 
         }
     }
