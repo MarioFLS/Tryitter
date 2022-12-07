@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using TryitterAPI.Models;
-using TryitterAPI.Models.Entities;
 using TryitterAPI.Repository;
 using static TryitterAPI.Models.Entities.Entities;
 
