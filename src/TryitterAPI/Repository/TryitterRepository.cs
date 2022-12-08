@@ -15,13 +15,13 @@ namespace TryitterAPI.Repository
             _context = context;
         }
 
-        public string CreateStudent(Student student)
+        public string? CreateStudent(Student student)
         {
             Student? studentShearch = _context.Students.Where(e => e.Email == student.Email).FirstOrDefault();
 
             if (studentShearch != null)
             {
-                return "";
+                return null;
             }
             _context.Students.Add(student);
             _context.SaveChanges();

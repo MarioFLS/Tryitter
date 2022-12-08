@@ -23,8 +23,8 @@ namespace TryitterAPI.Controllers
         [AllowAnonymous]
         public IActionResult CreateStudent([FromBody] Student student)
         {
-            string token = _twitterRepository.CreateStudent(student);
-            if (token.IsNullOrEmpty())
+            string? token = _twitterRepository.CreateStudent(student);
+            if (token == null)
             {
                 return Problem("Já existe usuário com esse email", default, 400);
             }
