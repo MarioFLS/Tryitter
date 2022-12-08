@@ -1,6 +1,4 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 using TryitterAPI.Models;
 using TryitterAPI.Models.Entities;
 using TryitterAPI.Repository;
@@ -63,6 +61,34 @@ namespace Tryitter.Test
                 "emailFernando@teste.com",
                 "123456789",
                 "emailDeverasTEstado@test.com"
+            },
+        };
+
+        [Trait("Post", "3 - Endpoint para criar uma postagem")]
+        [Theory(DisplayName = "Cria um novo Post")]
+        [MemberData(nameof(TestNewPostData))]
+        public void TestNewPost(TryitterContext context, Post post)
+        {
+            TryitterRepository? _tryitterRepository = new(context);
+            _tryitterRepository.AddPost(post);
+
+
+            var response = context.Post.Where(p => p.Id == 5).FirstOrDefault()!;
+            response.Should().BeEquivalentTo(post);
+
+
+        }
+        public readonly static TheoryData<TryitterContext, Post> TestNewPostData =
+        new()
+        {
+            {
+                Helper.GetContextInstanceForTests("TestNewPost"),
+                new Post {
+                Id = 5,
+                Title =  "Titulo Impressionante",
+                Text = "Texto Impressionante",
+                StudentId = 1,
+                }
             },
         };
     }
