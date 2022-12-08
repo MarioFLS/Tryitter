@@ -10,6 +10,7 @@ namespace TryitterAPI.Services.Swagger
             schema.Properties.Remove("id");
             schema.Properties.Remove("posts");
             schema.Properties.Remove("studentId");
+            schema.Properties.Remove("postId");
         }
     }
 }
