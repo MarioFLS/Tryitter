@@ -94,4 +94,7 @@ app.MapControllers();
 
 app.Run();
 
-public partial class Program { }
+namespace TryitterAPI
+{
+    public partial class Program { }
+}
