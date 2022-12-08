@@ -91,7 +91,6 @@ namespace TryitterAPI.Repository
             var student = _context.Students.Where(s => s.Id == id).FirstOrDefault();
             if (student == null)
             {
-                Console.WriteLine("Olá");
                 return null;
             }
             return _context.Post.Include(p => p.Images).Where(p => p.StudentId == id).OrderByDescending(p => p.Id).ToList();

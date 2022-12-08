@@ -79,7 +79,6 @@ namespace TryitterAPI.Controllers
         public IActionResult AllPosts(int id)
         {
             var posts = _twitterRepository.AllPosts(id);
-            //Console.WriteLine(posts.ToArray().FirstOrDefault());
             if (posts == null)
             {
                 return NotFound(new { Message = "Usuário não encontrado" });
