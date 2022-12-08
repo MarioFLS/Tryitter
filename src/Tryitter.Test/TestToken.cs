@@ -30,6 +30,8 @@ namespace Tryitter.Test
             string[] response = token.Split(".");
             response.Length.Should().Be(3);
 
+            // Codigo de validação
+            //https://medium.com/tableless/autentica%C3%A7%C3%A3o-em-apis-asp-net-core-com-jwt-591f3d8a9bad
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes("2d74025e7bcf058897d8daaa99ae99b5");
             tokenHandler.ValidateToken(token, new TokenValidationParameters
