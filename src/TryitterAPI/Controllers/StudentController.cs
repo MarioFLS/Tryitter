@@ -35,8 +35,8 @@ namespace TryitterAPI.Controllers
         [AllowAnonymous]
         public IActionResult StudentLogin([FromBody] Login login)
         {
-            string token = _twitterRepository.StudentLogin(login);
-            if (token.IsNullOrEmpty())
+            string? token = _twitterRepository.StudentLogin(login);
+            if (token == null)
             {
                 return Problem("Não existe Usuário com esse email", default, 400);
             }

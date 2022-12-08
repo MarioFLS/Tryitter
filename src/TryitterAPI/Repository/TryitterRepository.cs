@@ -29,13 +29,13 @@ namespace TryitterAPI.Repository
             return _tokenGenerator.Generate(student);
         }
 
-        public string StudentLogin(Login login)
+        public string? StudentLogin(Login login)
         {
             Student? student = _context.Students.Where(e => e.Email == login.Email && e.Password == login.Password).FirstOrDefault();
 
             if (student == null)
             {
-                return "";
+                return null;
             }
 
             return _tokenGenerator.Generate(student);
