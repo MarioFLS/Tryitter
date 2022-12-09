@@ -137,5 +137,53 @@ namespace Tryitter.Test
                 3
             },
         };
+
+        [Trait("Post", "6 - Endpoint para Remover Estudante")]
+        [Theory(DisplayName = "Remover Estudante pelo ID")]
+        [MemberData(nameof(TestRemoveStudentData))]
+        public void TestRemoveStudent(TryitterContext context, int id)
+        {
+            TryitterRepository? _tryitterRepository = new(context);
+            Student student = context.Students.Find(id)!;
+
+            student.Id.Should().Be(id);
+            _tryitterRepository.RemoveStudent(student);
+            
+            Student? nullStudent = context.Students.Where( s => s.Id == id).FirstOrDefault()!;
+            nullStudent.Should().BeNull();
+
+        }
+        public readonly static TheoryData<TryitterContext, int> TestRemoveStudentData =
+        new()
+        {
+            {
+                Helper.GetContextInstanceForTests("TestRemoveStudent"),
+                3
+            },
+        };
+
+        [Trait("Post", "7 - Endpoint para Remover Post")]
+        [Theory(DisplayName = "Remover Post pelo ID")]
+        [MemberData(nameof(TestRemovePostData))]
+        public void TestRemovePost(TryitterContext context, int id)
+        {
+            TryitterRepository? _tryitterRepository = new(context);
+            Post post = context.Post.Find(id)!;
+
+            post.Id.Should().Be(id);
+            _tryitterRepository.RemovePost(post);
+
+            Post? nullPost = context.Post.Where(s => s.Id == id).FirstOrDefault()!;
+            nullPost.Should().BeNull();
+
+        }
+        public readonly static TheoryData<TryitterContext, int> TestRemovePostData =
+        new()
+        {
+            {
+                Helper.GetContextInstanceForTests("TestRemovePost"),
+                1
+            },
+        };
     }
 }
