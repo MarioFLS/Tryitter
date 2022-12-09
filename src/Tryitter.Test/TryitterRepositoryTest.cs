@@ -247,5 +247,56 @@ namespace Tryitter.Test
                 }
             }
         };
+
+        [Trait("Estudante", "10 - Endpoint para Editar dados do Estudante")]
+        [Theory(DisplayName = "Editar Estudante")]
+        [MemberData(nameof(TestEditStudentData))]
+        public void TestEditStudent(TryitterContext context, int id, string password)
+        {
+            TryitterRepository? _tryitterRepository = new(context);
+            Entities.UpdateStudent update = new() { Password = password, Name = "teste" };
+            Student student = context.Students.Find(id)!;
+            _tryitterRepository.EditStudent(student, update);
+
+            Student response = context.Students.Find(student.Id)!;
+            response.Password.Should().Be(password);
+
+        }
+        public readonly static TheoryData<TryitterContext, int, string> TestEditStudentData =
+        new()
+        {
+            {
+                Helper.GetContextInstanceForTests("TestEditStudent"),
+               1,
+               "senhaExtremamenteConfiavel123456"
+
+            }
+        };
+
+        [Trait("Post", "11 - Endpoint para Editar dados da postagem")]
+        [Theory(DisplayName = "Editar Post")]
+        [MemberData(nameof(TestEditPostData))]
+        public void TestEditPost(TryitterContext context, int id, string title)
+        {
+            TryitterRepository? _tryitterRepository = new(context);
+            Entities.UpdatePost update = new() { Title = title };
+            Post post = context.Post.Find(id)!;
+            _tryitterRepository.EditPost(post, update);
+
+            Post response = context.Post.Find(post.Id)!;
+            response.Title.Should().Be(title);
+            response.Title.Should().NotBe("Titulo claramente muito deveras bem pensado");
+
+        }
+        public readonly static TheoryData<TryitterContext, int, string> TestEditPostData =
+        new()
+        {
+            {
+                Helper.GetContextInstanceForTests("TestEditPost"),
+               2,
+               "Titulo Novo MUito bom"
+
+            }
+        };
     }
 }

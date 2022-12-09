@@ -14,7 +14,7 @@ namespace Tryitter.Test
 
             var context = new TryitterContext(contextOptins);
             Console.WriteLine(context);
-            
+
             context.Students.AddRange(GetStudentListForTests());
             context.SaveChanges();
 
