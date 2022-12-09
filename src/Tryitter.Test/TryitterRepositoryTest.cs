@@ -91,5 +91,28 @@ namespace Tryitter.Test
                 }
             },
         };
+
+        [Trait("Post", "4 - Endpoint para buscar Estudante")]
+        [Theory(DisplayName = "Busca Estudante")]
+        [MemberData(nameof(TestGetStudentData))]
+        public void TestGetStudent(TryitterContext context, int id)
+        {
+            TryitterRepository? _tryitterRepository = new(context);
+            Student student = _tryitterRepository.GetStudent(id)!;
+
+
+            student.Id.Should().Be(id);
+            student.Email.Should().Be("emailJorge@teste.com");
+
+
+        }
+        public readonly static TheoryData<TryitterContext, int> TestGetStudentData =
+        new()
+        {
+            {
+                Helper.GetContextInstanceForTests("TestGetStudent"),
+                3
+            },
+        };
     }
 }
