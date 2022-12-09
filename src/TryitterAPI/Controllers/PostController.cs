@@ -50,22 +50,23 @@ namespace TryitterAPI.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public IActionResult EditPost([FromBody] UpdatePost updatePost)
+        public IActionResult EditPost([FromBody] UpdatePost updatePost, int id)
         {
 
-            int id = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
+            int idStudent = Convert.ToInt32(User?.Claims.First(claim => claim.Type == "id").Value);
 
-            if (updatePost.Title == null && updatePost.Title == null)
+            if (updatePost.Title == null && updatePost.Text == null)
             {
                 return BadRequest(new { message = "Insira os dados corretamente" });
             }
             var post = _twitterRepository.GetPost(id);
 
+
             if (post == null)
             {
                 return NotFound(new { Message = "Post não encontrado" });
             }
-            if (post.StudentId != id)
+            if (post.StudentId != idStudent)
             {
                 return Unauthorized(new { Message = "Você não é dono desse post" });
             }

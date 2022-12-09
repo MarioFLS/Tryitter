@@ -48,7 +48,7 @@ namespace TryitterAPI.Repository
 
         public Post? GetPost(int id)
         {
-            return _context.Post.Find(id);
+            return _context.Post.Where(p => p.Id == id).FirstOrDefault();
         }
 
         public void AddPost(Post post)
