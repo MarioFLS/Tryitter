@@ -16,9 +16,9 @@ namespace TryitterAPI.Repository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if(!optionsBuilder.IsConfigured)
+            if (!optionsBuilder.IsConfigured)
             {
-            optionsBuilder.UseSqlServer(@"Server=127.0.0.1;Database=store;User=SA;Password=Password12!;Encrypt=False");
+                optionsBuilder.UseSqlServer(@"Server=127.0.0.1;Database=store;User=SA;Password=Password12!;Encrypt=False");
 
             }
         }
