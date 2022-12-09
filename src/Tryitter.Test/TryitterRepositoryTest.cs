@@ -138,7 +138,7 @@ namespace Tryitter.Test
             },
         };
 
-        [Trait("Post", "6 - Endpoint para Remover Estudante")]
+        [Trait("Estudante", "6 - Endpoint para Remover Estudante")]
         [Theory(DisplayName = "Remover Estudante pelo ID")]
         [MemberData(nameof(TestRemoveStudentData))]
         public void TestRemoveStudent(TryitterContext context, int id)
@@ -148,8 +148,8 @@ namespace Tryitter.Test
 
             student.Id.Should().Be(id);
             _tryitterRepository.RemoveStudent(student);
-            
-            Student? nullStudent = context.Students.Where( s => s.Id == id).FirstOrDefault()!;
+
+            Student? nullStudent = context.Students.Where(s => s.Id == id).FirstOrDefault()!;
             nullStudent.Should().BeNull();
 
         }
@@ -184,6 +184,68 @@ namespace Tryitter.Test
                 Helper.GetContextInstanceForTests("TestRemovePost"),
                 1
             },
+        };
+
+        [Trait("Post", "8 - Endpoint para Buscar todos os posts")]
+        [Theory(DisplayName = "Buscar todas as postagems")]
+        [MemberData(nameof(TestGetAllPostsData))]
+        public void TestGetAllPosts(TryitterContext context, int id, List<Post> expect)
+        {
+            TryitterRepository? _tryitterRepository = new(context);
+            List<Post> posts = _tryitterRepository.AllPosts(id)!;
+
+            posts.Should().BeAssignableTo<List<Post>>();
+            posts.Should().BeEquivalentTo(expect);
+
+        }
+        public readonly static TheoryData<TryitterContext, int, List<Post>> TestGetAllPostsData =
+        new()
+        {
+            {
+                Helper.GetContextInstanceForTests("TestGetAllPosts"),
+                2,
+                new List<Post>() {
+                new Post {
+                    Id = 3,
+                    Title =  "Titulo desesperado por criatividade",
+                    Text = "Texto extremamente (não) criativo",
+                    StudentId = 2,
+                },
+                new Post {
+                    Id = 4,
+                    Title =  "Titulo final",
+                    Text = "Ultima Postagem",
+                    StudentId = 2,
+                }
+                }
+            }
+        };
+
+        [Trait("Post", "9 - Endpoint para Buscar ultimo post")]
+        [Theory(DisplayName = "Buscar ultima postagem")]
+        [MemberData(nameof(TestGetLastPostData))]
+        public void TestGetLastPost(TryitterContext context, int id, Post expect)
+        {
+            TryitterRepository? _tryitterRepository = new(context);
+            Post post = _tryitterRepository.LastPost(id)!;
+
+            post.Should().BeAssignableTo<Post>();
+            post.Should().BeEquivalentTo(expect);
+
+        }
+        public readonly static TheoryData<TryitterContext, int, Post> TestGetLastPostData =
+        new()
+        {
+            {
+                Helper.GetContextInstanceForTests("TestGetLastPost"),
+                2,
+                new Post {
+                    Id = 4,
+                    Title =  "Titulo final",
+                    Text = "Ultima Postagem",
+                    StudentId = 2,
+                }
+            }
         };
     }
 }
