@@ -114,5 +114,28 @@ namespace Tryitter.Test
                 3
             },
         };
+
+        [Trait("Post", "5 - Endpoint para buscar Postagem")]
+        [Theory(DisplayName = "Busca post")]
+        [MemberData(nameof(TestGetPostData))]
+        public void TestGetPost(TryitterContext context, int id)
+        {
+            TryitterRepository? _tryitterRepository = new(context);
+            Post post = _tryitterRepository.GetPost(id)!;
+
+
+            post.Id.Should().Be(id);
+            post.Text.Should().Be("Texto extremamente (não) criativo");
+
+
+        }
+        public readonly static TheoryData<TryitterContext, int> TestGetPostData =
+        new()
+        {
+            {
+                Helper.GetContextInstanceForTests("TestGetPost"),
+                3
+            },
+        };
     }
 }
