@@ -1,7 +1,7 @@
 # Tryitter
 
 ## Descrição
-Esse Projeto busca simular o 
+Esse Projeto busca simular a API de uma rede social! (Qualquer nome parecido é mera coincidência)
 
 ## Tecnologias Usadas
 
