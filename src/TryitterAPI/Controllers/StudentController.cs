@@ -6,18 +6,22 @@ using static TryitterAPI.Models.Entities.Entities;
 
 namespace TryitterAPI.Controllers
 {
-
+    ///text
     [ApiController]
     [Route("student")]
     public class StudentController : ControllerBase
     {
         private readonly ITryitterRepository _twitterRepository;
-
+        ///text
         public StudentController(ITryitterRepository twitterRepository)
         {
             _twitterRepository = twitterRepository;
         }
 
+        /// <summary>
+        /// Cria um novo Estudante
+        /// </summary>
+        /// <returns>Retorna Um token com as informações do estudante</returns>
         [HttpPost]
         [AllowAnonymous]
         public IActionResult CreateStudent([FromBody] Student student)
@@ -30,6 +34,10 @@ namespace TryitterAPI.Controllers
             return StatusCode(201, new { token });
         }
 
+        /// <summary>
+        /// Permite fazer Login como Estudante
+        /// </summary>
+        /// <returns>Retorna Um token com as informações do estudante</returns>
         [HttpPost("login")]
         [AllowAnonymous]
         public IActionResult StudentLogin([FromBody] Login login)
@@ -43,6 +51,20 @@ namespace TryitterAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Editar um Post
+        /// </summary>
+        /// <remarks>
+        /// Exemplo:
+        ///
+        ///     {
+        ///         "name": "name",
+        ///         "text": "text",
+        ///     }
+        ///
+        /// </remarks>
+
+        /// <returns>Não possui retorno</returns>
         [HttpPut]
         [Authorize]
         public IActionResult EditStudent([FromBody] UpdateStudent updateStudent)
@@ -66,6 +88,10 @@ namespace TryitterAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Remove o Seu estudante
+        /// </summary>
+        /// <returns>Não tem retorno</returns>
         [HttpDelete]
         [Authorize]
         public IActionResult DeleteStudent()
@@ -84,6 +110,10 @@ namespace TryitterAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Buscar todos os posts do estudante
+        /// </summary>
+        /// <returns>Retorna um array com posts</returns>
         [HttpGet("post")]
         [Authorize]
         public IActionResult AllPosts()
@@ -93,6 +123,10 @@ namespace TryitterAPI.Controllers
             return Ok(posts);
         }
 
+        /// <summary>
+        /// Buscar a ultima postagem do estudante
+        /// </summary>
+        /// <returns>Retorna uma postagem</returns>
         [HttpGet("post/last")]
         [Authorize]
         public IActionResult LastPost()

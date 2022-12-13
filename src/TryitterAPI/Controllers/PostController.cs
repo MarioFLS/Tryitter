@@ -6,17 +6,22 @@ using static TryitterAPI.Models.Entities.Entities;
 
 namespace TryitterAPI.Controllers
 {
+    /// text  
     [ApiController]
     [Route("post")]
     public class PostController : ControllerBase
     {
         private readonly ITryitterRepository _twitterRepository;
-
+        /// text  
         public PostController(ITryitterRepository twitterRepository)
         {
             _twitterRepository = twitterRepository;
         }
 
+        /// <summary>
+        /// Cria um novo post
+        /// </summary>
+        /// <returns>Retorna o novo Post Criado</returns>
         [HttpPost]
         [Authorize]
         public IActionResult CreatePost([FromBody] Post post)
@@ -30,6 +35,11 @@ namespace TryitterAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Remove um post pelo ID
+        /// </summary>
+        /// <param name="id">Id do Departamento</param>
+        /// <returns>Não tem retorno</returns>
         [HttpDelete("{id}")]
         [Authorize]
         public IActionResult RemovePost(int id)
@@ -48,6 +58,20 @@ namespace TryitterAPI.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Editar um Post
+        /// </summary>
+        /// <remarks>
+        /// Exemplo:
+        ///
+        ///     {
+        ///         "title": "title",
+        ///         "text": "text",
+        ///     }
+        ///
+        /// </remarks>
+
+        /// <returns>Não possui retorno</returns>
         [HttpPut("{id}")]
         [Authorize]
         public IActionResult EditPost([FromBody] UpdatePost updatePost, int id)
@@ -76,6 +100,10 @@ namespace TryitterAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Buscar todos os posts de um usuário
+        /// </summary>
+        /// <returns>Retorna um array com posts</returns>
         [HttpGet("{id}")]
         public IActionResult AllPosts(int id)
         {
@@ -87,6 +115,10 @@ namespace TryitterAPI.Controllers
             return Ok(posts);
         }
 
+        /// <summary>
+        /// Buscar o ultimo de um usuário
+        /// </summary>
+        /// <returns>Retorna uma postagem</returns>
         [HttpGet("{id}/last")]
         public IActionResult LastPost(int id)
         {

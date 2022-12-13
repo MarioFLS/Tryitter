@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
 using TryitterAPI.Repository;
 using TryitterAPI.Services.Swagger;
@@ -22,7 +23,7 @@ builder.Services.AddSwaggerGen(options =>
         {
             Version = "v1",
             Title = "Tryitter",
-            Description = "Uma API de uma rede social chamada: Tryitter, talvez um pouco baseada no Twitter. Mas pode ser coincidência",
+            Description = "Uma API de uma rede social chamada: Tryitter, talvez um pouco baseada no Twitter. Mas pode ser coincidência!",
         });
 
         options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -39,6 +40,8 @@ builder.Services.AddSwaggerGen(options =>
         });
         options.SchemaFilter<SwaggerFilterStudent>();
         options.OperationFilter<AuthResponsesOperationFilter>();
+        var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
     });
 
 builder.Services.AddAuthentication(options =>
