@@ -11,17 +11,6 @@ namespace TryitterAPI.Repository
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Post> Post { get; set; }
-
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(@"Server=127.0.0.1;Database=tryitter;User=SA;Password=Password12!;Encrypt=False");
-
-            }
-        }
     }
 
 }
